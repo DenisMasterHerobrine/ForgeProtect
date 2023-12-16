@@ -1,3 +1,11 @@
+<p align="center">
+  <img width="200" height="200" src="https://raw.githubusercontent.com/DenisMasterHerobrine/ForgeProtect/dev/1.19.2/assets/forgeprotect-icon.svg">
+</p>
+
+<p align="center">
+  <img src="https://cf.way2muchnoise.eu/ForgeProtect.svg"> <img src="https://cf.way2muchnoise.eu/ForgeProtect.svg"> <img src="https://img.shields.io/github/license/DenisMasterHerobrine/ForgeProtect"> <img src="https://img.shields.io/github/issues/denismasterherobrine/ForgeProtect">
+</p>
+
 <h1 align="center"><strong>ForgeProtect</strong></h1>
 
 <div align="center">ForgeProtect is a data logging and grief prevention tool for modded Minecraft modpacks or servers utilizing SQLite databases.</div>
