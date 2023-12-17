@@ -7,8 +7,8 @@ import net.minecraftforge.common.ForgeConfigSpec;
 import java.nio.file.Path;
 
 public class ConfigHandler {
-    public static final ForgeConfigSpec.Builder BUILDER = new ForgeConfigSpec.Builder();
-    public static final ForgeConfigSpec SPEC;
+    private static final ForgeConfigSpec.Builder BUILDER = new ForgeConfigSpec.Builder();
+    private static final ForgeConfigSpec SPEC;
 
     public static final ForgeConfigSpec.ConfigValue<String> DATABASE_DIR;
 

@@ -23,17 +23,18 @@
 - Block Breaking/Placement Events
 - *Item Dropping/Item Pickup/Item Despawn Events
 - Container Deposit/Retrieval Events
+- Mob Death Events
+- Entity/BlockEntity Explosion Events
 
-`*` = Still WIP, but should work in most cases. Detection method may be changed in future.
+`*` = Still WIP, but should work in most cases. Detection method may be changed in the future.
 
 **Future Features**:
-- Support Mob Summon/Death Events
 - Support Player Deaths Events
 - Separated Database Callback Threads
 - Commands
 - Rollback System
 - Sinytra Connector Support? (Support for Fabric mods)
-- Experimental Redis Support? (might be significant much faster than SQLite for larger rollback tasks)
+- Experimental Redis Support? (might be significantly much faster than SQLite for larger rollback tasks)
 
 <h1 align="center"><br />Download</h1>
 

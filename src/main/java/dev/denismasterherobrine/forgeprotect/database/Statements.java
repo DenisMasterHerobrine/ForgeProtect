@@ -18,6 +18,7 @@ public class Statements {
                     "mob_type TEXT, " +
                     "event_type TEXT, " +
                     "mob_position TEXT, " +
+                    "nbt_data TEXT, " +
                     "world TEXT, " +
                     "timestamp DATETIME DEFAULT CURRENT_TIMESTAMP)";
 
