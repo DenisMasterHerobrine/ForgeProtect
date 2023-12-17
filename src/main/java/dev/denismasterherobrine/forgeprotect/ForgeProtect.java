@@ -1,8 +1,7 @@
 package dev.denismasterherobrine.forgeprotect;
 
 import com.mojang.logging.LogUtils;
-import dev.denismasterherobrine.forgeprotect.config.ConfigHandler;
-import dev.denismasterherobrine.forgeprotect.config.ConfigPathHandler;
+import dev.denismasterherobrine.forgeprotect.config.*;
 import dev.denismasterherobrine.forgeprotect.database.DatabaseInitializer;
 import dev.denismasterherobrine.forgeprotect.listener.data.*;
 import net.minecraftforge.common.MinecraftForge;

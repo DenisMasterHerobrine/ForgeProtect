@@ -1,6 +1,6 @@
-package dev.denismasterherobrine.forgeprotect.database;
+package dev.denismasterherobrine.forgeprotect.database.records;
 
-public class Statements {
+public class TableCreator {
     public static final String CREATE_BLOCK_EVENTS_TABLE =
             "CREATE TABLE IF NOT EXISTS block_events (" +
                     "id INTEGER PRIMARY KEY AUTOINCREMENT, " +
@@ -20,6 +20,7 @@ public class Statements {
                     "mob_position TEXT, " +
                     "nbt_data TEXT, " +
                     "world TEXT, " +
+                    "reason TEXT, " +
                     "timestamp DATETIME DEFAULT CURRENT_TIMESTAMP)";
 
     public static final String CREATE_PLAYER_DEATHS_TABLE =
@@ -27,8 +28,8 @@ public class Statements {
                     "id INTEGER PRIMARY KEY AUTOINCREMENT, " +
                     "player_name TEXT, " +
                     "death_position TEXT, " +
-                    "inventory_data TEXT, " +  // Add a column for the player's inventory
-                    "curios_data TEXT, " +  // Add a column for the player's Curios slots
+                    "inventory_data TEXT, " +
+                    "curios_data TEXT, " +
                     "world TEXT, " +
                     "timestamp DATETIME DEFAULT CURRENT_TIMESTAMP)";
 
@@ -40,14 +41,15 @@ public class Statements {
                     "item_position TEXT, " +
                     "nbt_data TEXT, " +
                     "world TEXT, " +
-                    "drop_source TEXT, " + // May be chest, any storage on item drop, player or any mob on pickup.
-                    "pickup_source TEXT, " + // May be chest, any storage on item drop, player or any mob on pickup.
+                    "drop_source TEXT, " +
+                    "pickup_source TEXT, " +
                     "timestamp DATETIME DEFAULT CURRENT_TIMESTAMP)";
 
     public static final String CREATE_ITEM_CONTAINER_EVENTS_TABLE =
             "CREATE TABLE IF NOT EXISTS item_container_events (" +
                     "id INTEGER PRIMARY KEY AUTOINCREMENT, " +
                     "event_type TEXT, " +
+                    "amount INTEGER, " +
                     "item_type TEXT, " +
                     "event_time TIMESTAMP, " +
                     "container_position TEXT, " +

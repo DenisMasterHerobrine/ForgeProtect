@@ -1,7 +1,7 @@
 package dev.denismasterherobrine.forgeprotect.listener.data;
 
 import dev.denismasterherobrine.forgeprotect.ForgeProtect;
-import dev.denismasterherobrine.forgeprotect.database.DatabaseInitializer;
+import dev.denismasterherobrine.forgeprotect.database.records.Recorder;
 import dev.denismasterherobrine.forgeprotect.util.PositionUtils;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
@@ -13,9 +13,6 @@ import net.minecraftforge.event.entity.player.PlayerContainerEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
-import java.sql.Timestamp;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -74,7 +71,7 @@ public class ContainerEventListener {
             if (initialCount > afterCount) {
                 // Item count decreased or item disappeared, item was retrieved
                 int retrievedAmount = initialCount - afterCount;
-                recordRetrieveToDatabase(player, item, retrievedAmount, pos.toString(), player.getLevel().dimension().toString(), initialTag);
+                Recorder.recordRetrieveItem(player, item, retrievedAmount, pos.toString(), player.getLevel().dimension().toString(), initialTag);
             }
         }
 
@@ -89,50 +86,11 @@ public class ContainerEventListener {
             if (afterCount > initialCount) {
                 // Item count increased or new item appeared, item was deposited
                 int depositedAmount = afterCount - initialCount;
-                recordDepositToDatabase(player, item, depositedAmount, pos.toString(), player.getLevel().dimension().toString(), afterTag);
+                Recorder.recordDepositItem(player, item, depositedAmount, pos.toString(), player.getLevel().dimension().toString(), afterTag);
             }
         }
 
         initialItems.clear();
         afterItems.clear();
     }
-
-    private void recordDepositToDatabase(Player player, ItemStack item, int amount, String containerPosition, String world, CompoundTag tag) {
-        String sql =
-                "INSERT INTO item_container_events (event_type, item_type, event_time, container_position, nbt_data, world, player) " +
-                "VALUES(?, ?, ?, ?, ?, ?, ?)";
-
-
-        try {
-            PreparedStatement pstmt = DatabaseInitializer.getDatabaseConnection().prepareStatement(sql);
-            pstmt.setString(1, "DEPOSIT");
-            pstmt.setString(2, item.getItem().getName(item).toString()); // Assuming this method exists
-            pstmt.setTimestamp(3, new Timestamp(System.currentTimeMillis()));
-            pstmt.setString(4, containerPosition);
-            pstmt.setString(5, tag == null ? null : tag.toString());
-            pstmt.setString(6, world);
-            pstmt.setString(7, player.getName().getString()); // Assuming this method exists
-            pstmt.executeUpdate();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }
-
-    private void recordRetrieveToDatabase(Player player, ItemStack item, int amount, String containerPosition, String world, CompoundTag tag) {
-        String sql = "INSERT INTO item_container_events(event_type, item_type, event_time, container_position, nbt_data, world, player) VALUES(?, ?, ?, ?, ?, ?, ?)";
-        try {
-            PreparedStatement pstmt = DatabaseInitializer.getDatabaseConnection().prepareStatement(sql);
-            pstmt.setString(1, "RETRIEVE");
-            pstmt.setString(2, item.getItem().getName(item).toString()); // Assuming this method exists
-            pstmt.setTimestamp(3, new Timestamp(System.currentTimeMillis()));
-            pstmt.setString(4, containerPosition);
-            pstmt.setString(5, tag == null ? null : tag.toString());
-            pstmt.setString(6, world);
-            pstmt.setString(7, player.getName().getString()); // Assuming this method exists
-            pstmt.executeUpdate();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }
-
 }

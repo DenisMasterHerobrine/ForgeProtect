@@ -1,5 +1,6 @@
 package dev.denismasterherobrine.forgeprotect.database;
 
+import dev.denismasterherobrine.forgeprotect.database.records.TableCreator;
 import dev.denismasterherobrine.forgeprotect.database.util.TableChecks;
 
 import java.nio.file.Path;
@@ -20,23 +21,23 @@ public class DatabaseInitializer {
             Statement statement = connection.createStatement();
 
             if (!TableChecks.tableExists("block_events")) {
-                statement.execute(Statements.CREATE_BLOCK_EVENTS_TABLE);
+                statement.execute(TableCreator.CREATE_BLOCK_EVENTS_TABLE);
             }
 
             if (!TableChecks.tableExists("mob_events")) {
-                statement.execute(Statements.CREATE_MOB_EVENTS_TABLE);
+                statement.execute(TableCreator.CREATE_MOB_EVENTS_TABLE);
             }
 
             if (!TableChecks.tableExists("player_deaths")) {
-                statement.execute(Statements.CREATE_PLAYER_DEATHS_TABLE);
+                statement.execute(TableCreator.CREATE_PLAYER_DEATHS_TABLE);
             }
 
             if (!TableChecks.tableExists("item_events")) {
-                statement.execute(Statements.CREATE_ITEM_EVENTS_TABLE);
+                statement.execute(TableCreator.CREATE_ITEM_EVENTS_TABLE);
             }
 
             if (!TableChecks.tableExists("item_container_events")) {
-                statement.execute(Statements.CREATE_ITEM_CONTAINER_EVENTS_TABLE);
+                statement.execute(TableCreator.CREATE_ITEM_CONTAINER_EVENTS_TABLE);
             }
 
             statement.close();

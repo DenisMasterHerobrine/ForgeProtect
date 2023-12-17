@@ -1,7 +1,7 @@
 package dev.denismasterherobrine.forgeprotect.listener.data;
 
 import dev.denismasterherobrine.forgeprotect.ForgeProtect;
-import dev.denismasterherobrine.forgeprotect.database.DatabaseInitializer;
+import dev.denismasterherobrine.forgeprotect.database.records.Recorder;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.entity.player.Player;
@@ -10,10 +10,6 @@ import net.minecraftforge.event.entity.item.ItemTossEvent;
 import net.minecraftforge.event.entity.player.EntityItemPickupEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
-
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
-import java.sql.Timestamp;
 
 @Mod.EventBusSubscriber(bus = Mod.EventBusSubscriber.Bus.FORGE, modid = ForgeProtect.MODID)
 public class ItemEventListener {
@@ -32,25 +28,7 @@ public class ItemEventListener {
         itemStack.save(nbt);
         String nbtData = nbt.toString();
 
-        String sql =
-                "INSERT INTO item_events (item_type, drop_time, item_position, nbt_data, world, drop_source) " +
-                        "VALUES (?, ?, ?, ?, ?, ?)";
-
-        try {
-            PreparedStatement statement = DatabaseInitializer.getDatabaseConnection().prepareStatement(sql);
-
-            statement.setString(1, itemType);
-            statement.setString(2, new Timestamp(System.currentTimeMillis()).toString());
-            statement.setString(3, itemPosition);
-            statement.setString(4, nbtData);
-            statement.setString(5, worldName);
-            statement.setString(6, dropSource);
-
-            statement.executeUpdate();
-            statement.close();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
+        Recorder.recordDroppedItem(itemType, itemPosition, nbtData, worldName, event.getPlayer().getName().getString());
     }
 
     @SubscribeEvent
@@ -68,24 +46,6 @@ public class ItemEventListener {
         itemStack.save(nbt);
         String nbtData = nbt.toString();
 
-        String sql =
-                "INSERT INTO item_events (item_type, drop_time, item_position, nbt_data, world, pickup_source) " +
-                        "VALUES (?, ?, ?, ?, ?, ?)";
-
-        try {
-            PreparedStatement statement = DatabaseInitializer.getDatabaseConnection().prepareStatement(sql);
-
-            statement.setString(1, itemType);
-            statement.setString(2, new Timestamp(System.currentTimeMillis()).toString());
-            statement.setString(3, itemPosition);
-            statement.setString(4, nbtData);
-            statement.setString(5, worldName);
-            statement.setString(6, pickupSource);
-
-            statement.executeUpdate();
-            statement.close();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
+        Recorder.recordPickedUpItem(itemType, itemPosition, nbtData, worldName, pickupSource);
     }
 }
