@@ -1,5 +1,5 @@
 <p align="center">
-  <img width="200" height="200" src="https://raw.githubusercontent.com/DenisMasterHerobrine/ForgeProtect/1b5540c7dc64135f3debdf9c531e298e671ae911/assets/forgeprotect-icon.svg">
+  <img width="200" height="200" src="https://raw.githubusercontent.com/DenisMasterHerobrine/ForgeProtect/1b5540c7dc64135f3debdf9c531e298e671ae911/assets/forgeprotect-icon.png">
 </p>
   
 <p align="center">
