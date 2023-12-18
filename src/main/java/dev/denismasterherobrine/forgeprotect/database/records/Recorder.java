@@ -37,6 +37,27 @@ public class Recorder {
         });
     }
 
+    public static void recordBlockUpdate(String playerName, String blockType, String blockPosition, String world, String nbtData) {
+        executor.submit(() -> {
+            String sql = "INSERT INTO block_events (player_name, block_type, block_position, action, nbt_data, world) VALUES (?, ?, ?, ?, ?, ?)";
+
+            try {
+                PreparedStatement statement = DatabaseInitializer.getDatabaseConnection().prepareStatement(sql);
+                statement.setString(1, playerName);
+                statement.setString(2, blockType);
+                statement.setString(3, blockPosition);
+                statement.setString(4, "UPDATE_BLOCK");
+                statement.setString(5, nbtData);
+                statement.setString(6, world);
+
+                statement.executeUpdate();
+                statement.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        });
+    }
+
     public static void recordBlockPlace(String playerName, String blockType, String blockPosition, String world, String nbtData) {
         executor.submit(() -> {
             String sql = "INSERT INTO block_events (player_name, block_type, block_position, action, nbt_data, world) VALUES (?, ?, ?, ?, ?, ?)";
@@ -166,7 +187,7 @@ public class Recorder {
         });
     }
 
-    public static void recordPlayerDeath (String playerName, String deathPosition, String inventoryData, String curiosData, String world) {
+    public static void recordPlayerDeath(String playerName, String deathPosition, String inventoryData, String curiosData, String world) {
         executor.submit(() -> {
             String sql = "INSERT INTO player_deaths (player_name, death_position, inventory_data, curios_data, world) VALUES (?, ?, ?, ?, ?)";
             try (PreparedStatement pstmt = DatabaseInitializer.getDatabaseConnection().prepareStatement(sql)) {
@@ -181,7 +202,6 @@ public class Recorder {
             }
         });
     }
-
 
     // Similar methods for recordBlockPlace, recordItemRetrieved, etc.
 
