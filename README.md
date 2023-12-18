@@ -19,20 +19,21 @@
 
 <h1 align="center"><br />Features</h1>
 
-**Currently Supported Events**:
-- Block Breaking/Placement Events
-- *Item Dropping/Item Pickup/Item Despawn Events
-- Container Deposit/Retrieval Events
-- Mob Death Events
-- Entity/BlockEntity Explosion Events
+**Current Features**:
+- Logging Block Breaking/Placement Events
+- Logging *Item Dropping/Item Pickup/Item Despawn Events
+- Logging Container Deposit/Retrieval Events
+- Logging Mob Death Events
+- Logging Entity/BlockEntity Explosion Events
+- Logging *Player Death Events
+- Multithreaded Logging
 
 `*` = Still WIP, but should work in most cases. Detection method may be changed in the future.
 
 **Future Features**:
-- Support Player Deaths Events
-- Separated Database Callback Threads
 - Commands
 - Rollback System
+- Curios API Support
 - Sinytra Connector Support? (Support for Fabric mods)
 - Experimental Redis Support? (might be significantly much faster than SQLite for larger rollback tasks)
 

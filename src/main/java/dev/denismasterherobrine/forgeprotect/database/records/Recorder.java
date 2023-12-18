@@ -166,6 +166,22 @@ public class Recorder {
         });
     }
 
+    public static void recordPlayerDeath (String playerName, String deathPosition, String inventoryData, String curiosData, String world) {
+        executor.submit(() -> {
+            String sql = "INSERT INTO player_deaths (player_name, death_position, inventory_data, curios_data, world) VALUES (?, ?, ?, ?, ?)";
+            try (PreparedStatement pstmt = DatabaseInitializer.getDatabaseConnection().prepareStatement(sql)) {
+                pstmt.setString(1, playerName);
+                pstmt.setString(2, deathPosition);
+                pstmt.setString(3, inventoryData);
+                pstmt.setString(4, curiosData);
+                pstmt.setString(5, world);
+                pstmt.executeUpdate();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        });
+    }
+
 
     // Similar methods for recordBlockPlace, recordItemRetrieved, etc.
 
